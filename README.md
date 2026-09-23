@@ -55,8 +55,12 @@ logic, only forwarding, which is why the real raylib still has to be linked.
 
 ```
 cd examples
+yap install                                    # links the module from ..
 yap raylib_basic_window.yp -o basic_window && ./basic_window
 ```
+
+`examples/mod.yp` declares this repo's own module as a path dependency, so the
+examples build against the working tree rather than a published version.
 
 `raylib_music_stream` and `raylib_model_animation` load from `resources/`, so
 run them from inside `examples/`. The model example needs a raylib built with
