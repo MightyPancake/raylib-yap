@@ -49,7 +49,18 @@ logic, only forwarding, which is why the real raylib still has to be linked.
 | `wrapper.c` | prefixed C wrapper |
 | `raylib.h` | the header the bindings came from |
 | `colors.yp`, `constants.yp` | hand-written conveniences |
-| `raylib_*.yp` | examples |
+| `examples/` | runnable examples, with the assets they load |
+
+## Examples
+
+```
+cd examples
+yap raylib_basic_window.yp -o basic_window && ./basic_window
+```
+
+`raylib_music_stream` and `raylib_model_animation` load from `resources/`, so
+run them from inside `examples/`. The model example needs a raylib built with
+`SUPPORT_GPU_SKINNING`; it loads an explicit skinning shader for that reason.
 
 ## Regenerating the bindings
 
