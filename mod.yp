@@ -1,7 +1,15 @@
 module raylib {
     version: "6.0.0",
     prefix: "raylib_",
-    libs: ["raylib"]
+    // Untargeted, this asked pkg-config for a native raylib on every build, including
+    // -bcc=emcc ones, which put a native library on a wasm link line. Naming the native
+    // targets instead leaves the wasm build to libraylibweb_wasm.a, the emcc-built raylib
+    // the makefile vendors (see README).
+    libs: [
+        { name: "raylib", target: "linux" },
+        { name: "raylib", target: "macos" },
+        { name: "raylib", target: "windows" }
+    ]
 }
 
 import "binds.yp"
