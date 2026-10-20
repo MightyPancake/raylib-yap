@@ -3,3 +3,4 @@
 *.so
 .yap/
 yap.lock
+third_party/
