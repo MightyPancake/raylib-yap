@@ -9,10 +9,10 @@ Declare it in your project's manifest:
 ```
 module myproject {
     version: "0.1.0",
-    deps: [
+    deps: {
         { name: "raylib", version: "^6.0.0",
           git: "https://github.com/MightyPancake/raylib-yap", tag: "v6.0.0" }
-    ]
+    }
 }
 
 import raylib

@@ -1,7 +1,7 @@
 // Manifest for the examples: they consume the module from this repo's root.
 module raylib_examples {
     version: "0.1.0",
-    deps: [
+    deps: {
         { name: "raylib", version: "^6.0.0", path: ".." }
-    ]
+    }
 }
