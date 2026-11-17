@@ -6,88 +6,88 @@ i32 fn main() {
     i32 screenWidth = 800;
     i32 screenHeight = 450;
 
-    raylib->InitWindow(screenWidth, screenHeight, c"raylib [audio] example - music stream");
-    raylib->InitAudioDevice();
+    InitWindow(screenWidth, screenHeight, c"raylib [audio] example - music stream");
+    InitAudioDevice();
 
-    Music music = raylib->LoadMusicStream(c"examples/resources/country.mp3");
-    raylib->PlayMusicStream(music);
+    Music music = LoadMusicStream(c"examples/resources/country.mp3");
+    PlayMusicStream(music);
 
     f32 timePlayed = 0.0;
     bool pause = false;
 
     f32 pan = 0.0;
-    raylib->SetMusicPan(music, pan);
+    SetMusicPan(music, pan);
 
     f32 volume = 0.8;
-    raylib->SetMusicVolume(music, volume);
+    SetMusicVolume(music, volume);
 
-    raylib->SetTargetFPS(30);
+    SetTargetFPS(30);
 
-    while (!raylib->WindowShouldClose()) {
-        raylib->UpdateMusicStream(music);
+    while (!WindowShouldClose()) {
+        UpdateMusicStream(music);
 
-        if (raylib->IsKeyPressed(raylib->KEY_SPACE())) {
-            raylib->StopMusicStream(music);
-            raylib->PlayMusicStream(music);
+        if (IsKeyPressed(KEY_SPACE)) {
+            StopMusicStream(music);
+            PlayMusicStream(music);
         }
 
-        if (raylib->IsKeyPressed(raylib->KEY_P())) {
+        if (IsKeyPressed(KEY_P)) {
             pause = !pause;
-            if (pause) raylib->PauseMusicStream(music);
-            else raylib->ResumeMusicStream(music);
+            if (pause) PauseMusicStream(music);
+            else ResumeMusicStream(music);
         }
 
-        if (raylib->IsKeyDown(raylib->KEY_LEFT())) {
-            pan = pan - 0.05;
+        if (IsKeyDown(KEY_LEFT)) {
+            pan -= 0.05;
             if (pan < -1.0) pan = -1.0;
-            raylib->SetMusicPan(music, pan);
-        } else if (raylib->IsKeyDown(raylib->KEY_RIGHT())) {
-            pan = pan + 0.05;
+            SetMusicPan(music, pan);
+        } else if (IsKeyDown(KEY_RIGHT)) {
+            pan += 0.05;
             if (pan > 1.0) pan = 1.0;
-            raylib->SetMusicPan(music, pan);
+            SetMusicPan(music, pan);
         }
 
-        if (raylib->IsKeyDown(raylib->KEY_DOWN())) {
-            volume = volume - 0.05;
+        if (IsKeyDown(KEY_DOWN)) {
+            volume -= 0.05;
             if (volume < 0.0) volume = 0.0;
-            raylib->SetMusicVolume(music, volume);
-        } else if (raylib->IsKeyDown(raylib->KEY_UP())) {
-            volume = volume + 0.05;
+            SetMusicVolume(music, volume);
+        } else if (IsKeyDown(KEY_UP)) {
+            volume += 0.05;
             if (volume > 1.0) volume = 1.0;
-            raylib->SetMusicVolume(music, volume);
+            SetMusicVolume(music, volume);
         }
 
-        timePlayed = raylib->GetMusicTimePlayed(music) / raylib->GetMusicTimeLength(music);
+        timePlayed = GetMusicTimePlayed(music) / GetMusicTimeLength(music);
         if (timePlayed > 1.0) timePlayed = 1.0;
 
-        raylib->BeginDrawing();
-        raylib->ClearBackground(raylib->RAYWHITE());
+        BeginDrawing();
+        ClearBackground(RAYWHITE);
 
-        raylib->DrawText(c"MUSIC SHOULD BE PLAYING!", 255, 150, 20, raylib->LIGHTGRAY());
+        DrawText(c"MUSIC SHOULD BE PLAYING!", 255, 150, 20, LIGHTGRAY);
 
-        raylib->DrawText(c"LEFT-RIGHT for PAN CONTROL", 320, 74, 10, raylib->DARKBLUE());
-        raylib->DrawRectangle(300, 100, 200, 12, raylib->LIGHTGRAY());
-        raylib->DrawRectangleLines(300, 100, 200, 12, raylib->GRAY());
-        raylib->DrawRectangle((300.0 + (pan + 1.0) / 2.0 * 200.0 - 5.0).(i32), 92, 10, 28, raylib->DARKGRAY());
+        DrawText(c"LEFT-RIGHT for PAN CONTROL", 320, 74, 10, DARKBLUE);
+        DrawRectangle(300, 100, 200, 12, LIGHTGRAY);
+        DrawRectangleLines(300, 100, 200, 12, GRAY);
+        DrawRectangle((300.0 + (pan + 1.0) / 2.0 * 200.0 - 5.0).(i32), 92, 10, 28, DARKGRAY);
 
-        raylib->DrawRectangle(200, 200, 400, 12, raylib->LIGHTGRAY());
-        raylib->DrawRectangle(200, 200, (timePlayed * 400.0).(i32), 12, raylib->MAROON());
-        raylib->DrawRectangleLines(200, 200, 400, 12, raylib->GRAY());
+        DrawRectangle(200, 200, 400, 12, LIGHTGRAY);
+        DrawRectangle(200, 200, (timePlayed * 400.0).(i32), 12, MAROON);
+        DrawRectangleLines(200, 200, 400, 12, GRAY);
 
-        raylib->DrawText(c"PRESS SPACE TO RESTART MUSIC", 215, 250, 20, raylib->LIGHTGRAY());
-        raylib->DrawText(c"PRESS P TO PAUSE/RESUME MUSIC", 208, 280, 20, raylib->LIGHTGRAY());
+        DrawText(c"PRESS SPACE TO RESTART MUSIC", 215, 250, 20, LIGHTGRAY);
+        DrawText(c"PRESS P TO PAUSE/RESUME MUSIC", 208, 280, 20, LIGHTGRAY);
 
-        raylib->DrawText(c"UP-DOWN for VOLUME CONTROL", 320, 334, 10, raylib->DARKGREEN());
-        raylib->DrawRectangle(300, 360, 200, 12, raylib->LIGHTGRAY());
-        raylib->DrawRectangleLines(300, 360, 200, 12, raylib->GRAY());
-        raylib->DrawRectangle((300.0 + volume * 200.0 - 5.0).(i32), 352, 10, 28, raylib->DARKGRAY());
+        DrawText(c"UP-DOWN for VOLUME CONTROL", 320, 334, 10, DARKGREEN);
+        DrawRectangle(300, 360, 200, 12, LIGHTGRAY);
+        DrawRectangleLines(300, 360, 200, 12, GRAY);
+        DrawRectangle((300.0 + volume * 200.0 - 5.0).(i32), 352, 10, 28, DARKGRAY);
 
-        raylib->EndDrawing();
+        EndDrawing();
     }
 
-    raylib->UnloadMusicStream(music);
-    raylib->CloseAudioDevice();
-    raylib->CloseWindow();
+    UnloadMusicStream(music);
+    CloseAudioDevice();
+    CloseWindow();
 
     ret 0;
 }

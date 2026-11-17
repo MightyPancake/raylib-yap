@@ -15,71 +15,70 @@ i32 fn main() {
     i32 screenWidth = 800;
     i32 screenHeight = 450;
 
-    raylib->InitWindow(screenWidth, screenHeight, c"raylib [models] example - model animation (glTF, GPU skinning)");
+    InitWindow(screenWidth, screenHeight, c"raylib [models] example - model animation (glTF, GPU skinning)");
 
-    Camera3D camera;
-    camera.position = {6.0, 6.0, 6.0}.(Vector3);
-    camera.target = {0.0, 2.0, 0.0}.(Vector3);
-    camera.up = {0.0, 1.0, 0.0}.(Vector3);
-    camera.fovy = 45.0;
-    camera.projection = raylib->CAMERA_PERSPECTIVE();
+    Camera3D camera = {
+        .position = {6.0, 6.0, 6.0},
+        .target = {0.0, 2.0, 0.0},
+        .up = {0.0, 1.0, 0.0},
+        .fovy = 45.0,
+        .projection = CAMERA_PERSPECTIVE,
+    };
 
-    Model model = raylib->LoadModel(c"examples/resources/models/gltf/robot.glb");
-    Vector3 position = {0.0, 0.0, 0.0}.(Vector3);
+    Model model = LoadModel(c"examples/resources/models/gltf/robot.glb");
+    Vector3 position = {};
 
-    Shader skinningShader = raylib->LoadShader(
+    Shader skinningShader = LoadShader(
         c"examples/resources/shaders/glsl330/skinning.vert.glsl",
         c"examples/resources/shaders/glsl330/skinning.frag.glsl");
-    i32 mi = 0;
-    while (mi < model.materialCount) {
+    for (i32 mi = 0; mi < model.materialCount; mi++) {
         model.materials[mi].shader = skinningShader;
-        mi = mi + 1;
     }
 
     i32 animsCount = 0;
-    ModelAnimation@ anims = raylib->LoadModelAnimations(c"examples/resources/models/gltf/robot.glb", animsCount@);
+    ModelAnimation@ anims = LoadModelAnimations(c"examples/resources/models/gltf/robot.glb", animsCount@);
     i32 animIndex = 10; // "Robot_Walking"
     f32 animFrame = 0.0;
 
-    raylib->SetTargetFPS(60);
+    SetTargetFPS(60);
 
-    while (!raylib->WindowShouldClose()) {
-        raylib->UpdateCamera(camera@, raylib->CAMERA_ORBITAL());
+    while (!WindowShouldClose()) {
+        UpdateCamera(camera@, CAMERA_ORBITAL);
 
-        if (raylib->IsKeyPressed(raylib->KEY_RIGHT())) {
+        if (IsKeyPressed(KEY_RIGHT)) {
             animIndex = (animIndex + 1) % animsCount;
             animFrame = 0.0;
-        } else if (raylib->IsKeyPressed(raylib->KEY_LEFT())) {
+        } else if (IsKeyPressed(KEY_LEFT)) {
             animIndex = (animIndex + animsCount - 1) % animsCount;
             animFrame = 0.0;
         }
 
         if (animsCount > 0) {
-            animFrame = animFrame + 1.0;
+            animFrame += 1.0;
             if (animFrame >= anims[animIndex].keyframeCount.(f32)) animFrame = 0.0;
-            raylib->UpdateModelAnimation(model, anims[animIndex], animFrame);
+            UpdateModelAnimation(model, anims[animIndex], animFrame);
         }
 
-        raylib->BeginDrawing();
-        raylib->ClearBackground(raylib->RAYWHITE());
+        BeginDrawing();
+        ClearBackground(RAYWHITE);
 
-        raylib->BeginMode3D(camera);
-        raylib->DrawModel(model, position, 1.0, raylib->WHITE());
-        raylib->DrawGrid(10, 1.0);
-        raylib->EndMode3D();
+        BeginMode3D(camera);
+        DrawModel(model, position, 1.0, WHITE);
+        DrawGrid(10, 1.0);
+        EndMode3D();
 
-        raylib->DrawText(c"Use the LEFT/RIGHT keys to switch animation", 10, 10, 20, raylib->GRAY());
-        raylib->DrawText(c"Current animation:", 10, 40, 20, raylib->MAROON());
-        raylib->DrawText((anims[animIndex].name[0])@, 220, 40, 20, raylib->MAROON());
+        DrawText(c"Use the LEFT/RIGHT keys to switch animation", 10, 10, 20, GRAY);
+        DrawText(c"Current animation:", 10, 40, 20, MAROON);
+        DrawText((anims[animIndex].name[0])@, 220, 40, 20, MAROON);
 
-        raylib->EndDrawing();
+        EndDrawing();
     }
 
-    raylib->UnloadShader(skinningShader);
-    raylib->UnloadModelAnimations(anims, animsCount);
-    raylib->UnloadModel(model);
+    UnloadShader(skinningShader);
+    UnloadModelAnimations(anims, animsCount);
+    UnloadModel(model);
 
-    raylib->CloseWindow();
+    CloseWindow();
 
     ret 0;
 }

@@ -5,21 +5,21 @@ i32 fn main() {
     i32 screenWidth = 800;
     i32 screenHeight = 450;
 
-    raylib->InitWindow(screenWidth, screenHeight, c"raylib [core] example - basic window");
+    InitWindow(screenWidth, screenHeight, c"raylib [core] example - basic window");
 
-    raylib->SetTargetFPS(60);
+    SetTargetFPS(60);
 
-    while (!raylib->WindowShouldClose()) {
-        raylib->BeginDrawing();
+    while (!WindowShouldClose()) {
+        BeginDrawing();
 
-        raylib->ClearBackground(raylib->RAYWHITE());
+        ClearBackground(RAYWHITE);
 
-        raylib->DrawText(c"Congrats! You created your first window!", 190, 200, 20, raylib->LIGHTGRAY());
+        DrawText(c"Congrats! You created your first window!", 190, 200, 20, LIGHTGRAY);
 
-        raylib->EndDrawing();
+        EndDrawing();
     }
 
-    raylib->CloseWindow();
+    CloseWindow();
 
     ret 0;
 }

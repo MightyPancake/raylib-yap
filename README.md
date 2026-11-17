@@ -28,6 +28,24 @@ yap main.yp -o main
 `yap install` clones this repo to `.yap/modules/raylib/6.0.0/` and compiles
 `wrapper.c` into `libraylib.a`/`libraylib.so` beside it.
 
+Call raylib by its own names. A file that imports `raylib` can drop the
+`raylib->` prefix whenever no other import has the same name:
+
+```
+InitWindow(800, 450, c"hello");
+while (!WindowShouldClose()) {
+    BeginDrawing();
+    ClearBackground(RAYWHITE);
+    if (IsKeyDown(KEY_SPACE)) DrawText(c"space!", 10, 10, 20, MAROON);
+    EndDrawing();
+}
+CloseWindow();
+```
+
+Colors (`RAYWHITE`, `MAROON`, ...) are `Color` values and enum constants
+(`KEY_SPACE`, `FLAG_VSYNC_HINT`, ...) are `i32` values, the same names raylib's
+C API uses. The enums themselves are there too, as `KeyboardKey.KEY_SPACE`.
+
 You need raylib itself installed. This module declares raylib as a library for
 each native target, so the compiler asks pkg-config where it is and puts the
 result on the link line; if raylib ships no `.pc` file on your system, it falls
@@ -97,8 +115,9 @@ yap raylib_basic_window.yp -o basic_window && ./basic_window
 `examples/mod.yp` declares this repo's own module as a path dependency, so the
 examples build against the working tree rather than a published version.
 
-`raylib_music_stream` and `raylib_model_animation` load from `resources/`, so
-run them from inside `examples/`. The model example needs a raylib built with
+`raylib_music_stream` and `raylib_model_animation` load from
+`examples/resources/`, so run them from the repo root
+(`./examples/music_stream`). The model example needs a raylib built with
 `SUPPORT_GPU_SKINNING`; it loads an explicit skinning shader for that reason.
 
 ## Regenerating the bindings
