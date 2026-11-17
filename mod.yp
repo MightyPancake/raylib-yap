@@ -1,5 +1,5 @@
 module raylib {
-    version: "6.0.0",
+    version: "6.0.1",
     prefix: "raylib_",
     // Untargeted, this asked pkg-config for a native raylib on every build, including
     // -bcc=emcc ones, which put a native library on a wasm link line. Naming the native

@@ -11,7 +11,7 @@ module myproject {
     version: "0.1.0",
     deps: {
         { name: "raylib", version: "^6.0.0",
-          git: "https://github.com/MightyPancake/raylib-yap", tag: "v6.0.0" }
+          git: "https://github.com/MightyPancake/raylib-yap", tag: "v6.0.1" }
     }
 }
 
@@ -25,7 +25,7 @@ yap install
 yap main.yp -o main
 ```
 
-`yap install` clones this repo to `.yap/modules/raylib/6.0.0/` and compiles
+`yap install` clones this repo to `.yap/modules/raylib/6.0.1/` and compiles
 `wrapper.c` into `libraylib.a`/`libraylib.so` beside it.
 
 Call raylib by its own names. A file that imports `raylib` can drop the
