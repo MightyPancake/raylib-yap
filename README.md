@@ -106,3 +106,6 @@ run them from inside `examples/`. The model example needs a raylib built with
 ```
 yap --gen-c-bind 'raylib.h' --prefix raylib_ -o binds.yp
 ```
+
+Bindgen can't represent `SetTraceLogCallback` (its callback takes a `va_list`);
+replace its line in `binds.yp` with a comment, as the committed file does.
